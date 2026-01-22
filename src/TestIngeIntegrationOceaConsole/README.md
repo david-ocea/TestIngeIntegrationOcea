@@ -39,7 +39,16 @@ Lors de l’exécution, l’application :
 
 ## Tests unitaires
 
-TODO
+1. Depuis un terminal, positionnez-vous à la racine du projet de test et executez :
+Pour les exécuter :
+
+```bash
+# Restaure les dépendances et compile l’application et les tests
+dotnet build
+
+# Lancement des tests
+dotnet test
+```
 
 ## Limitations
 
