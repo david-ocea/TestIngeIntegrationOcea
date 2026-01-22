@@ -11,6 +11,11 @@ namespace OceaSmartBuildingApp
         public int DaysToPlan { get; set; }
         public string Priority { get; set; } = default!;
 
+        // Champs géocodage (null si indisponible)
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? GeoScore { get; set; }
+
         public WorkOrderResult(
             string workOrderId,
             string meterSerial,
@@ -57,6 +62,13 @@ namespace OceaSmartBuildingApp
                 res.Priority = "P3";
             }
             return res;
+        }
+
+        public void SetGPS(GeoResult? result)
+        {
+            Latitude = result?.Latitude;
+            Longitude = result?.Longitude;
+            GeoScore = result?.Score;
         }
     }
 }

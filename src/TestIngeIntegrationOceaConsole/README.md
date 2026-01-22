@@ -33,6 +33,8 @@ Lors de l’exécution, l’application :
   * `Department` : deux premiers caractères du code postal ;
   * `DaysToPlan` : différence en jours entre la date planifiée et la date du jour (entier, positif ou négatif) ;
   * `Priority` : P1 (≤ 1 jour), P2 (2 ou 3 jours) ou P3 (≥ 4 jours) ;
+* appelle le service public de géocodage (<https://data.geopf.fr/geocodage/search>) pour enrichir l’adresse avec `Latitude`, `Longitude` et `GeoScore` (null en cas d’échec) ;
+* écrit l’ensemble des ordres enrichis dans `output.json` (format JSON avec indentations) ;
 
 ## Tests unitaires
 

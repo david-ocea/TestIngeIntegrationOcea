@@ -44,11 +44,29 @@ Console.WriteLine($"Lignes lues\t: {validOrders.Count + rejectedLines.Count}");
 Console.WriteLine($"Lignes valides\t: {validOrders.Count}");
 Console.WriteLine($"Lignes rejetées\t: {rejectedLines.Count}");
 
+// Instancie le service de geocodage.
+// Le HttpClient est partagé à travers toute l'application
+using HttpClient httpClient = new HttpClient();
+var geocodingService = new GeocodingService(httpClient);
+
 // Enrichit les Work Orders valides
 List<WorkOrderResult> enrichedOrders = new List<WorkOrderResult>();
 foreach (var wo in validOrders)
 {
     var result = WorkOrderResult.FromWorkOrder(wo);
+    try
+    {
+        var geo = await geocodingService.GeocodeAsync(result.AddressLabel);
+        result.SetGPS(geo);
+    }
+    catch (Exception ex)
+    {
+        // En cas d'échec ou de TO sur l'appel géocodage, le traitement doit continuer
+        // Les erreurs sont affchées dans la console pour information.
+        Console.Error.WriteLine(
+            $"Erreur lors de l'appel géocodage pour '{result.AddressLabel}': {ex.Message}"
+        );
+    }
     enrichedOrders.Add(result);
 }
 
