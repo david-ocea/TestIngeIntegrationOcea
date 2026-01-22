@@ -9,22 +9,29 @@ namespace TestIngeIntegrationOceaConsole.Services;
 /// valide chaque lignes selon les règles métier et extrait les
 /// lignes rejetées.
 /// </summary>
-public static class CsvService
+public class CsvService
 {
+    private readonly Func<string, ILineReader> _readerFactory;
+
+    public CsvService(Func<string, ILineReader> readerFactory)
+    {
+        _readerFactory = readerFactory;
+    }
+
     /// <summary>
     /// Lit le fichier CSV et renvoie la liste des WorkOrder valides et
     /// la liste des WorkOrder rejetées et la raison du rejet.
     /// </summary>
     /// <param name="path">Le chemin du fichier CSV</param>
     /// <returns>Tuple de WorkOrders valides/rejetés</returns>
-    public static (
+    public (
         List<WorkOrder> ValidOrders,
         List<(string Line, string Reason)> Rejected
     ) ReadAndValidate(string path)
     {
         var valid = new List<WorkOrder>();
         var rejected = new List<(string line, string Reason)>();
-        using var reader = new StreamReader(path, Encoding.UTF8);
+        using var reader = _readerFactory(path);
         string? header = reader.ReadLine();
         if (header == null)
         {
