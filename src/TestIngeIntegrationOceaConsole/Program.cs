@@ -82,3 +82,20 @@ string outputJson = Encoding.UTF8.GetString(utf8Bytes);
 
 string outputPath = $"{DefaultOutputFolder}/output.json";
 await File.WriteAllTextAsync(outputPath, outputJson, Encoding.UTF8);
+
+// Simule le HTTP POST.
+var payloadBytes = Encoding.UTF8.GetBytes(outputJson);
+var content = new StringContent(outputJson, Encoding.UTF8, "application/json");
+HttpResponseMessage response;
+try
+{
+    Console.WriteLine($"Envoi HTTP en cours...");
+    response = await httpClient.PostAsync("https://httpbin.org/post", content);
+    Console.WriteLine(
+        $"Envoi HTTP terminé. Code: {(int)response.StatusCode}. Taille du payload: {payloadBytes.Length} octets."
+    );
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Erreur lors de l'envoi HTTP: {ex.Message}");
+}
