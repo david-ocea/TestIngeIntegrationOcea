@@ -28,7 +28,11 @@ Lors de l’exécution, l’application :
 * valide chaque ligne (champs requis non vides, code postal à 5 chiffres, date planifiée au format `YYYY-MM-DD`) ;
 * génère un fichier `rejected.csv` contenant les lignes invalides et une colonne `RejectReason` décrivant le motif ;
 * affiche un récapitulatif des lignes lues, valides et rejetées ;
-
+* calcule pour chaque ordre de travail valide :
+  * `AddressLabel` : concaténation normalisée de la rue, du code postal et de la ville ;
+  * `Department` : deux premiers caractères du code postal ;
+  * `DaysToPlan` : différence en jours entre la date planifiée et la date du jour (entier, positif ou négatif) ;
+  * `Priority` : P1 (≤ 1 jour), P2 (2 ou 3 jours) ou P3 (≥ 4 jours) ;
 
 ## Tests unitaires
 
