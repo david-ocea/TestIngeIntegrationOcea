@@ -25,7 +25,9 @@ if (!File.Exists(inputPath))
     return;
 }
 
-var (validOrders, rejectedLines) = CsvService.ReadAndValidate(inputPath);
+var csvService = new CsvService(path => new FileLineReader(path));
+
+var (validOrders, rejectedLines) = csvService.ReadAndValidate(inputPath);
 
 try
 {
