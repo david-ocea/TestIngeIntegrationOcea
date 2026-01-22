@@ -1,18 +1,17 @@
 using System.Text.RegularExpressions;
 
-namespace Utils
+namespace TestIngeIntegrationOceaConsole.Utils;
+
+/// <summary>
+/// Utilitaire sur les chaines de caractère.
+/// </summary>
+public static class StringHelper
 {
     /// <summary>
-    /// Utilitaire sur les chaines de caractère.
+    /// Remplace les multiples espaces dans une chaine de caractère.
     /// </summary>
-    public static class StringHelper
+    public static string NormalizeWhitespace(string input)
     {
-        /// <summary>
-        /// Remplace les multiples espaces dans une chaine de caractère.
-        /// </summary>
-        public static string NormalizeWhitespace(string input)
-        {
-            return Regex.Replace(input ?? string.Empty, "\\s+", " ").Trim();
-        }
+        return Regex.Replace(input ?? string.Empty, "\\s+", " ").Trim();
     }
 }

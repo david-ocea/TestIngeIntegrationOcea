@@ -2,7 +2,9 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
-using OceaSmartBuildingApp;
+using OceaSmartBuildingApp.Models;
+using OceaSmartBuildingApp.Services;
+using TestIngeIntegrationOceaConsole.Services;
 
 /// <summary>
 /// Chemin du fichier d'entrée. Peut être modifié en rajoutant
