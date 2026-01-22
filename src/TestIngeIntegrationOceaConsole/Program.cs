@@ -1,5 +1,7 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 using OceaSmartBuildingApp;
 
 /// <summary>
@@ -51,11 +53,14 @@ foreach (var wo in validOrders)
 }
 
 // Serialize le résultat en JSON et l'écrit dans le fichier output.json
-byte[] utf8Bytes = JsonSerializer.SerializeToUtf8Bytes(
-    enrichedOrders,
-    new JsonSerializerOptions { WriteIndented = true }
-);
-string outputJson = System.Text.Encoding.UTF8.GetString(utf8Bytes);
+var options = new JsonSerializerOptions
+{
+    Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+    WriteIndented = true,
+};
+
+byte[] utf8Bytes = JsonSerializer.SerializeToUtf8Bytes(enrichedOrders, options);
+string outputJson = Encoding.UTF8.GetString(utf8Bytes);
 
 string outputPath = $"{DefaultOutputFolder}/output.json";
 await File.WriteAllTextAsync(outputPath, outputJson, Encoding.UTF8);
