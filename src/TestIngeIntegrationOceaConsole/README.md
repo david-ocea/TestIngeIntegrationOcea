@@ -35,6 +35,7 @@ Lors de l’exécution, l’application :
   * `Priority` : P1 (≤ 1 jour), P2 (2 ou 3 jours) ou P3 (≥ 4 jours) ;
 * appelle le service public de géocodage (<https://data.geopf.fr/geocodage/search>) pour enrichir l’adresse avec `Latitude`, `Longitude` et `GeoScore` (null en cas d’échec) ;
 * écrit l’ensemble des ordres enrichis dans `output.json` (format JSON avec indentations) ;
+* simule l’envoi du résultat en effectuant un `POST` vers <https://httpbin.org/post> avec le JSON en payload et affiche le code HTTP ainsi que la taille du contenu envoyé en octets.
 
 ## Tests unitaires
 
