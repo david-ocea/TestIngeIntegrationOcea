@@ -23,6 +23,16 @@ if (!File.Exists(inputPath))
 
 var (validOrders, rejectedLines) = CsvService.ReadAndValidate(inputPath);
 
+try
+{
+    Directory.CreateDirectory(DefaultOutputFolder);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Erreur lors de la création du dossier de sortie: {ex.Message}");
+    return;
+}
+
 // Crée un fichier CSV pour les WorkOrders rejetés. The
 // output path is relative to the working directory.
 string rejectedPath = $"{DefaultOutputFolder}/rejectedLines.csv";
